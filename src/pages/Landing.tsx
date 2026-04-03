@@ -3,6 +3,7 @@ import { Brain, ShieldCheck, BarChart3, Zap, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { initTheme } from "@/lib/theme";
+import HowItWorks from "@/components/HowItWorks";
 
 const features = [
   { icon: Brain, title: "Cognitive Bias Detection", desc: "Uncover hidden biases influencing your decisions" },
@@ -55,6 +56,10 @@ export default function Landing() {
         <p className="animate-fade-in-up mt-4 text-sm text-muted-foreground" style={{ animationDelay: "0.45s" }}>
           No sign-up required · Free to use · Instant results
         </p>
+
+        <div className="animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
+          <HowItWorks />
+        </div>
 
         {/* Feature cards */}
         <div className="animate-fade-in-up mt-16 grid w-full max-w-3xl grid-cols-2 gap-4 md:grid-cols-4" style={{ animationDelay: "0.55s" }}>
