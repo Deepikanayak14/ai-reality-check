@@ -3,6 +3,7 @@ import { Brain, ShieldCheck, BarChart3, Zap, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { initTheme } from "@/lib/theme";
+import HowItWorks from "@/components/HowItWorks";
 
 const features = [
   { icon: Brain, title: "Cognitive Bias Detection", desc: "Uncover hidden biases influencing your decisions" },
