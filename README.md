@@ -76,6 +76,10 @@ User Dashboard: Personalized history of analyses, insights, and progress trackin
 Collaboration Features: Allow teams to share and compare analysis results.
 AI Explanations: Provide detailed reasoning behind each bias or manipulation flag.
 
+
+**Live deployment link**:
+ai-reality-check-5d2r-q9bxrchsc-deepikanayak14s-projects.vercel.app
+
 **Point of contact**:
 Name : K.Deepika
 Email: kethavathdeepika14@gmail.com
