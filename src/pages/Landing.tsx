@@ -45,7 +45,7 @@ export default function Landing() {
 
         {/* CTA Button */}
         <button
-          onClick={() => navigate("/app")}
+          onClick={() => navigate("/auth")}
           className="animate-fade-in-up group mt-10 flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/20"
           style={{ animationDelay: "0.35s" }}
         >
