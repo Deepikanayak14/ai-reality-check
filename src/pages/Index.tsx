@@ -1,5 +1,6 @@
-// NEW: Main application page — AI Reality Checker
+// Main application page — AI Reality Checker
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import HeroInput from "@/components/HeroInput";
 import HowItWorks from "@/components/HowItWorks";
@@ -13,27 +14,68 @@ import ProgressDashboard from "@/components/ProgressDashboard";
 import ThinkingProfile from "@/components/ThinkingProfile";
 import VisualProof from "@/components/VisualProof";
 import { analyzeInput, analyzeDocument, type AnalysisResult } from "@/lib/analyzer";
-import { getSessions, saveSession, type SessionData } from "@/lib/storage";
+import { type SessionData } from "@/lib/storage";
 import { initTheme } from "@/lib/theme";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import type { User } from "@supabase/supabase-js";
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [sessions, setSessions] = useState<SessionData[]>([]);
+  const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     initTheme();
-    setSessions(getSessions());
-  }, []);
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      setUser(session?.user ?? null);
+      if (!session) navigate("/auth");
+    });
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) navigate("/auth");
+      else {
+        setUser(session.user);
+        loadSessions();
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const loadSessions = async () => {
+    const { data, error } = await supabase
+      .from("analysis_sessions")
+      .select("*")
+      .order("created_at", { ascending: true });
+
+    if (!error && data) {
+      const mapped: SessionData[] = data.map((s: any) => ({
+        id: s.id,
+        date: s.created_at,
+        input: s.input_text,
+        clarityScore: s.clarity_score,
+        biases: s.biases || [],
+        domains: s.domains || [],
+        riskProfile: s.risk_profile || {},
+        trustScore: s.trust_score,
+      }));
+      setSessions(mapped);
+    }
+  };
 
   const handleAnalyze = async (text: string) => {
     setIsLoading(true);
     setResult(null);
     try {
       const res = await analyzeInput(text);
-      saveSession(res.session);
-      setSessions(getSessions());
+      await loadSessions();
       setResult(res);
+    } catch (err: any) {
+      toast.error(err.message || "Analysis failed");
     } finally {
       setIsLoading(false);
     }
@@ -44,9 +86,10 @@ export default function Index() {
     setResult(null);
     try {
       const res = await analyzeDocument(fileName, content);
-      saveSession(res.session);
-      setSessions(getSessions());
+      await loadSessions();
       setResult(res);
+    } catch (err: any) {
+      toast.error(err.message || "Analysis failed");
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +97,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen transition-colors duration-300">
-      <Navbar />
+      <Navbar user={user} />
       <main className="container mx-auto space-y-10 px-4 py-10">
         <HeroInput onAnalyze={handleAnalyze} isLoading={isLoading} />
         <HowItWorks />
