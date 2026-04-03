@@ -54,7 +54,7 @@ export default function Landing() {
         </button>
 
         <p className="animate-fade-in-up mt-4 text-sm text-muted-foreground" style={{ animationDelay: "0.45s" }}>
-          No sign-up required · Free to use · Instant results
+          Free to use · AI-powered · Instant results
         </p>
 
         <div className="animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
