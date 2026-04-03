@@ -14,7 +14,7 @@ It empowers users to make clearer, more rational decisions with AI‑powered ana
 ## 📂 Project Structure
 repo-root/ ├── src/                # React frontend code ├── public/             # Static assets ├── api/                # Backend routes (serverless functions) │   ├── hello.ts        # Example API endpoint │   ├── users.ts        # User-related logic │   └── auth.ts         # Authentication logic ├── supabase/           # Database setup & helpers ├── package.json        # Dependencies & scripts ├── vite.config.ts      # Vite config ├── vitest.config.ts    # Vitest test config ├── tsconfig.json       # Base TypeScript config ├── tsconfig.app.json   # Frontend TypeScript config ├── tsconfig.node.json  # Backend TypeScript config ├── tailwind.config.ts  # Tailwind config ├── postcss.config.js   # PostCSS config ├── eslint.config.js    # ESLint config ├── .env                # Environment variables (not committed) ├── .gitignore          # Ignore unnecessary files ├── README.md           # Documentation
 
-⚙️ Setup Instructions
+⚙️ **Setup Instructions**
 
 
 1. **Clone the repo**
@@ -34,7 +34,7 @@ npm run dev
 9. Add environment variables (SUPABASE_URL, SUPABASE_KEY, DATABASE_URL) in Vercel settings
 10. Done 
 
- 📊 Project Details
+ 📊**Project Details**
 
 ### 🔎 Problem Statement
 People often fall victim to cognitive biases, manipulation, and scams because they lack tools to critically evaluate information.  
@@ -76,7 +76,7 @@ User Dashboard: Personalized history of analyses, insights, and progress trackin
 Collaboration Features: Allow teams to share and compare analysis results.
 AI Explanations: Provide detailed reasoning behind each bias or manipulation flag.
 
-Point of contact:
+**Point of contact**:
 Name : K.Deepika
 Email: kethavathdeepika14@gmail.com
 github: Deepikanayak14/
